@@ -1,0 +1,45 @@
+# ── Secrets & credentials — NEVER commit these! ──────────────────────────────
+.env
+.env.local
+serviceAccountKey.json
+
+# ── Python cache ──────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# ── Virtual environment ───────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+
+# ── Build / packaging ─────────────────────────────────────────────────────────
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+wheels/
+
+# ── Local SQLite history DB (auto-created at runtime) ─────────────────────────
+instance/
+*.db
+*.sqlite
+*.sqlite3
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+logs/
+*.log
+
+# ── IDE / editor ──────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── OS generated ──────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.dbdesktop.ini

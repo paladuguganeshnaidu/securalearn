@@ -1,0 +1,8 @@
+# Packages needed to run ShieldWall
+# Install everything at once:  pip install -r requirements.txt
+
+Flask>=3.0              # Web framework — handles HTTP routes, templates, sessions
+python-dotenv>=1.0      # Reads your .env file so secrets stay out of code
+groq>=0.4.0             # Groq API client — ultra-fast AI responses (LLaMA 3)
+requests>=2.31.0        # HTTP library
+firebase-admin>=6.5.0   # Firebase/Firestore SDK (optional — for cloud chat history)
