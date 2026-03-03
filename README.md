@@ -2,8 +2,9 @@
 **This project was developed using AI-assisted implementation to accelerate development.
 System architecture, design decisions, validation, security review, refactoring, and final approval were performed manually.
 AI was used as a productivity tool — not as a substitute for engineering judgment or ownership.
+---
 A **private AI-powered cybersecurity chatbot** built with Flask and Groq (LLaMA 3.3 70B).
-Automatically saves every conversation to local storage (or Firebase Firestore if configured).
+Automatically saves every conversation to local storage.
 
 ---
 
@@ -190,4 +191,5 @@ Only needed if you want cloud-synced history accessible from multiple devices.
 
 *ToriiMinds CyberOffense Intelligence Agent — Private Project*
 #
+
 
