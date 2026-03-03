@@ -42,4 +42,5 @@ logs/
 
 # ── OS generated ──────────────────────────────────────────────────────────────
 .DS_Store
-Thumbs.dbdesktop.ini
+Thumbs.db
+desktop.ini

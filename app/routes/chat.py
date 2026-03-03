@@ -20,6 +20,7 @@ import uuid
 from flask import Blueprint, request, jsonify, render_template, session
 from app.services.groq_client import GroqClient
 from app.services import firebase_service
+from app.services import student_profile
 
 # Blueprint groups all /chat/ routes together
 chat_bp = Blueprint('chat', __name__, url_prefix='/chat')
@@ -65,8 +66,26 @@ def send_message():
     mode       = data.get('mode', 'education')   # default to education mode
     session_id = session.get('session_id', 'default')
 
+    # ── Adaptive engine: fetch profile & build context block ──────────────────
+    profile          = student_profile.get_student_profile(session_id)
+    adaptive_context = student_profile.adjust_response_depth(profile)
+
+    # Inject the adaptive context as a prefix to the user message so the LLM
+    # adapts depth/vocabulary without touching Groq connection logic.
+    enriched_message = f"{adaptive_context}\n\n---\n\nUser Query:\n{user_message}"
+
     # Ask the AI (calls Groq API with the right system prompt for the chosen mode)
-    result = client.generate_response(user_message, session_id, mode=mode)
+    result = client.generate_response(enriched_message, session_id, mode=mode)
+
+    # ── Update student profile after a successful interaction ─────────────────
+    if result.get('success'):
+        detected_level = student_profile.detect_skill_level(user_message)
+        topic          = firebase_service.extract_topic(user_message)
+        student_profile.update_student_profile(session_id, {
+            'topic':        topic,
+            'skill_level':  detected_level,
+            'user_message': user_message,
+        })
 
     # Auto-save to history (SQLite locally, or Firestore if configured)
     # This never crashes the chat — errors are logged and silently ignored
